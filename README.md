@@ -9,12 +9,31 @@
 - **隐形自检**：一键检测当前机器上提词窗是否真的对采集不可见
 - **智能跟读**：离线语音识别（sherpa-onnx 中英双语流式模型），滚动自动跟随语速；识别不可用时自动回退匀速滚动
 - **核心提词**：透明悬浮窗、置顶、无边框、可拖拽缩放、逐行高亮、匀速滚动
-- **文稿导入**：支持导入 Markdown / TXT 文件，文件名作为标题
+- **文稿导入**：支持导入 Markdown / TXT 文件（可多选），文件名作为标题
+- **Markdown 显示**：提词窗自动剥离 markdown 语法（标题、加粗、列表、链接等），上屏为纯口播文本；编辑器保留原文
 - **外观调节**：字号、速度、行距、字距、文字/背景颜色、背景不透明度、对齐
 - **镜像翻转**：水平/垂直镜像，适配物理提词器玻璃反射
 - **全局快捷键**：提词中生效（默认 Space 播放/暂停、↑↓ 调速、R 回到开头），可自定义
 - **点击穿透**：鼠标穿透提词窗操作下层应用
 - **中英双语**界面
+
+## 使用
+
+1. 新建文稿，或点侧栏导入按钮导入 Markdown / TXT 文件
+2. 选中文稿，点「开始提词」——提词窗出现，此时为**暂停**状态
+3. 按 **Space**（或点播放键）开始滚动
+4. 需要隐形时确认设置里「录屏隐形」已开启；录制前可用「隐形自检」一键体检
+
+## 智能跟读
+
+- 开启路径：设置 → 智能跟读。首次使用需在设置面板下载离线识别模型（约 200MB，ModelScope 源，国内可达）
+- 模型文件存于 `userData/models/zipformer-bilingual/`，**识别全程在本机完成，语音不出本机**
+- macOS 首次启用会请求麦克风权限，请点击「允许」
+  - 若误点拒绝：设置面板会出现「打开系统设置」按钮，跳转到 隐私与安全性 → 麦克风 开启后**重启应用**
+  - 签名包需要 `com.apple.security.device.audio-input` entitlement（已在 `build/entitlements.mac.plist` 配置），缺失时系统不弹窗直接拒绝
+- 使用要点：跟读滚动只在**播放中**运行——开始提词后记得按 Space
+- 停顿即停、回读自动倒退、跳读自动前进；连续识别不到时文本保持不动，不飘
+- 模型未下载/引擎加载失败/麦克风被拒 → 自动回退为匀速滚动，跟读永不阻塞提词
 
 ## 开发
 
@@ -23,7 +42,7 @@ pnpm install        # 首次安装（.npmrc 已配置 electron 国内镜像；pn
 pnpm dev            # 开发模式（HMR）
 pnpm build          # 构建到 out/
 pnpm typecheck      # 类型检查
-pnpm test           # 单元测试（Vitest）
+pnpm test           # 单元测试（Vitest，42 例）
 ```
 
 ## 打包
@@ -39,13 +58,6 @@ scripts\build-win.bat         # Windows 原生构建 nsis x64
 
 打包需 Electron 下载镜像：`export ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/`（脚本已内置默认值）
 
-## 智能跟读
-
-- 首次使用需在设置面板下载离线识别模型（约 200MB，ModelScope 源，国内可达）
-- 模型文件存于 `userData/models/zipformer-bilingual/`，识别全程在本机完成
-- macOS 首次启用会请求麦克风权限
-- 模型未下载/引擎加载失败/麦克风被拒 → 自动回退为匀速滚动，跟读功能永不阻塞提词
-
 ## 平台兼容性说明（录屏隐形）
 
 | 环境 | 隐形是否生效 |
@@ -59,6 +71,7 @@ scripts\build-win.bat         # Windows 原生构建 nsis x64
 
 macOS 15+ 使用 ScreenCaptureKit 的采集方会绕过系统级窗口保护（Electron 官方确认无解，
 Apple 有意为之）。录制前请用应用内「隐形自检」确认当前环境，OBS 用户请改用「窗口采集」源。
+注意：显示器休眠时自检无法采集屏幕，会提示找不到显示器，唤醒屏幕后重试即可。
 
 ## 安装未签名包
 
@@ -77,4 +90,4 @@ Apple 有意为之）。录制前请用应用内「隐形自检」确认当前�
 
 Electron + electron-vite + React + TypeScript + Tailwind CSS + zustand +
 sherpa-onnx（离线 ASR）。主进程为播放状态与设置的唯一事实源，双渲染窗口通过
-IPC 广播保持同步。
+IPC 广播保持同步；渲染进程全部运行在 sandbox 中，preload 按窗拆分最小权限 API。
