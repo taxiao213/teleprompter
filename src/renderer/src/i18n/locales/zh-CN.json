@@ -1,0 +1,104 @@
+{
+  "app": {
+    "name": "隐形提词器",
+    "tagline": "录屏看不到的提词器"
+  },
+  "sidebar": {
+    "scripts": "脚本",
+    "new": "新建脚本",
+    "empty": "还没有脚本\n点击上方按钮新建",
+    "deleteConfirm": "确定删除「{{title}}」吗？此操作不可撤销。",
+    "import": "导入文稿",
+    "importHint": "导入 Markdown / TXT 文件",
+    "importSkipped": "以下文件未导入（为空、超过 20 万字符或无法读取）：{{files}}"
+  },
+  "editor": {
+    "titlePlaceholder": "脚本标题",
+    "contentPlaceholder": "在这里输入或粘贴口播稿…\n\n每行一句，提词时逐行滚动。",
+    "empty": "选择或新建一个脚本开始",
+    "chars": "{{count}} 字"
+  },
+  "playback": {
+    "start": "开始提词",
+    "stop": "结束提词",
+    "play": "播放",
+    "pause": "暂停",
+    "reset": "回到开头",
+    "speed": "速度",
+    "playing": "播放中",
+    "paused": "已暂停",
+    "idle": "待开始",
+    "needScript": "请先选择一个有内容的脚本"
+  },
+  "settings": {
+    "title": "提词设置",
+    "appearance": "外观",
+    "behavior": "窗口行为",
+    "fontSize": "字号",
+    "speed": "滚动速度",
+    "textColor": "文字颜色",
+    "backgroundColor": "背景颜色",
+    "backgroundOpacity": "背景不透明度",
+    "lineHeight": "行距",
+    "letterSpacing": "字距",
+    "textAlign": "对齐",
+    "alignLeft": "左对齐",
+    "alignCenter": "居中",
+    "mirrorH": "水平镜像",
+    "mirrorV": "垂直镜像",
+    "mirrorHint": "用于物理提词器玻璃反射场景",
+    "followSection": "智能跟读",
+    "followMode": "语音跟读",
+    "followHint": "麦克风识别语音，滚动自动跟随你的语速（离线识别，不出本机）",
+    "following": "跟读中",
+    "stealth": "录屏隐形",
+    "stealthHint": "开启后提词窗对录屏、截图、会议共享不可见",
+    "clickThrough": "点击穿透",
+    "clickThroughHint": "鼠标穿透提词窗操作下层应用，需用快捷键控制",
+    "alwaysOnTop": "窗口置顶",
+    "language": "界面语言",
+    "langAuto": "跟随系统",
+    "shortcuts": "全局快捷键（提词中生效）",
+    "shortcutToggle": "播放 / 暂停",
+    "shortcutSpeedUp": "加速",
+    "shortcutSpeedDown": "减速",
+    "shortcutReset": "回到开头",
+    "pressKey": "请按下按键…",
+    "shortcutHint": "提词结束后快捷键自动释放"
+  },
+  "selftest": {
+    "title": "隐形自检",
+    "run": "开始检测",
+    "running": "检测中…",
+    "hint": "检测时提词窗会闪烁一下，随后报告当前环境是否能采集到它。",
+    "result": {
+      "invisible": "✅ 隐形生效：本机屏幕采集看不到提词窗",
+      "leaked": "⚠️ 提词窗仍会被采集到。若使用 OBS，请改用「窗口采集」源而非 macOS 屏幕采集",
+      "capture-unavailable": "无法自动检测：请先在系统设置中授予本应用「屏幕录制」权限",
+      "display-not-found": "无法定位提词窗所在的显示器，检测未完成",
+      "protection-disabled": "隐形开关当前处于关闭状态，提词窗会被录制",
+      "error": "检测失败：{{message}}"
+    }
+  },
+  "asr": {
+    "title": "语音识别模型",
+    "download": "下载模型（约 200MB）",
+    "downloading": "下载中 {{percent}}%",
+    "downloadFailed": "模型下载失败：{{message}}",
+    "error": "识别引擎错误：{{message}}",
+    "idleHint": "模型就绪后，开始提词即自动启用跟读",
+    "state": {
+      "no-model": "首次使用需下载离线识别模型",
+      "loading": "模型加载中…",
+      "ready": "跟读已就绪",
+      "error": "出错了",
+      "mic-denied": "麦克风权限被拒绝。请在系统设置中允许后重启应用"
+    },
+    "openMicSettings": "打开系统设置"
+  },
+  "common": {
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除"
+  }
+}

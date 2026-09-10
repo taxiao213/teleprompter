@@ -1,0 +1,46 @@
+{
+  "name": "teleprompter",
+  "version": "0.1.0",
+  "description": "Stealth teleprompter for talking-head video recording — invisible to screen capture",
+  "main": "out/main/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "pack": "electron-vite build && electron-builder",
+    "pack:mac": "electron-vite build && electron-builder --mac",
+    "pack:win": "electron-vite build && electron-builder --win",
+    "test": "vitest run"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-select": "^2.3.7",
+    "@radix-ui/react-slider": "^1.4.7",
+    "@radix-ui/react-switch": "^1.3.7",
+    "clsx": "^2.1.1",
+    "electron-store": "^11.0.2",
+    "i18next": "^26.4.0",
+    "lucide-react": "^1.37.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-i18next": "^17.0.12",
+    "sherpa-onnx-node": "^1.13.6",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  }
+}

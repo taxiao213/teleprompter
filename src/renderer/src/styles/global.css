@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* The teleprompter window is a transparent overlay — body must stay
+     transparent; each app paints its own background. */
+  background: transparent;
+  font-family:
+    system-ui,
+    -apple-system,
+    "PingFang SC",
+    "Microsoft YaHei",
+    "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Window drag regions (Electron) */
+.drag-region {
+  -webkit-app-region: drag;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Slim scrollbars for dark surfaces */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.14);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.24);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

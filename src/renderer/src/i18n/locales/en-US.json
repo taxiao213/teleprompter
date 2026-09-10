@@ -1,0 +1,104 @@
+{
+  "app": {
+    "name": "Stealth Prompter",
+    "tagline": "The teleprompter your recording can't see"
+  },
+  "sidebar": {
+    "scripts": "Scripts",
+    "new": "New script",
+    "empty": "No scripts yet\nCreate one above",
+    "deleteConfirm": "Delete \"{{title}}\"? This cannot be undone.",
+    "import": "Import scripts",
+    "importHint": "Import Markdown / TXT files",
+    "importSkipped": "These files were not imported (empty, over 200k characters, or unreadable): {{files}}"
+  },
+  "editor": {
+    "titlePlaceholder": "Script title",
+    "contentPlaceholder": "Type or paste your script here…\n\nOne sentence per line; the prompter scrolls line by line.",
+    "empty": "Select or create a script to begin",
+    "chars": "{{count}} chars"
+  },
+  "playback": {
+    "start": "Start prompting",
+    "stop": "Stop prompting",
+    "play": "Play",
+    "pause": "Pause",
+    "reset": "Back to top",
+    "speed": "Speed",
+    "playing": "Playing",
+    "paused": "Paused",
+    "idle": "Idle",
+    "needScript": "Select a script with content first"
+  },
+  "settings": {
+    "title": "Prompter settings",
+    "appearance": "Appearance",
+    "behavior": "Window behavior",
+    "fontSize": "Font size",
+    "speed": "Scroll speed",
+    "textColor": "Text color",
+    "backgroundColor": "Background color",
+    "backgroundOpacity": "Background opacity",
+    "lineHeight": "Line height",
+    "letterSpacing": "Letter spacing",
+    "textAlign": "Alignment",
+    "alignLeft": "Left",
+    "alignCenter": "Center",
+    "mirrorH": "Mirror horizontal",
+    "mirrorV": "Mirror vertical",
+    "mirrorHint": "For physical teleprompter glass reflection",
+    "followSection": "Speech following",
+    "followMode": "Voice follow",
+    "followHint": "On-device speech recognition scrolls at your pace (fully offline)",
+    "following": "Following",
+    "stealth": "Hide from capture",
+    "stealthHint": "The prompter stays invisible to screen recording, screenshots and meeting share",
+    "clickThrough": "Click-through",
+    "clickThroughHint": "Mouse clicks pass through the prompter; control it with shortcuts",
+    "alwaysOnTop": "Always on top",
+    "language": "Language",
+    "langAuto": "System",
+    "shortcuts": "Global shortcuts (active while prompting)",
+    "shortcutToggle": "Play / pause",
+    "shortcutSpeedUp": "Speed up",
+    "shortcutSpeedDown": "Slow down",
+    "shortcutReset": "Back to top",
+    "pressKey": "Press a key…",
+    "shortcutHint": "Shortcuts are released when prompting ends"
+  },
+  "selftest": {
+    "title": "Stealth self-test",
+    "run": "Run test",
+    "running": "Testing…",
+    "hint": "The prompter window flashes once, then we report whether this machine can capture it.",
+    "result": {
+      "invisible": "✅ Stealth confirmed: screen capture on this machine cannot see the prompter",
+      "leaked": "⚠️ The prompter was captured. If you use OBS, switch to a legacy \"Window Capture\" source instead of macOS Screen Capture",
+      "capture-unavailable": "Cannot auto-test: grant this app Screen Recording permission in System Settings first",
+      "display-not-found": "Could not match the prompter's display; test skipped",
+      "protection-disabled": "Stealth is currently off — the prompter will be recorded",
+      "error": "Test failed: {{message}}"
+    }
+  },
+  "asr": {
+    "title": "Speech model",
+    "download": "Download model (~200MB)",
+    "downloading": "Downloading {{percent}}%",
+    "downloadFailed": "Model download failed: {{message}}",
+    "error": "Engine error: {{message}}",
+    "idleHint": "Once the model is ready, following starts with each session",
+    "state": {
+      "no-model": "First use needs a one-time offline model download",
+      "loading": "Loading model…",
+      "ready": "Following is ready",
+      "error": "Something went wrong",
+      "mic-denied": "Microphone access denied. Allow it in System Settings, then restart the app"
+    },
+    "openMicSettings": "Open System Settings"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "OK",
+    "delete": "Delete"
+  }
+}

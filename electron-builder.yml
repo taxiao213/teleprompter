@@ -1,0 +1,43 @@
+appId: com.teleprompter.app
+productName: Teleprompter
+asar: true
+# Native ASR addon must live outside the asar archive; the per-platform
+# binary package is unpacked per-OS below, and other platforms' binaries are
+# excluded from each package entirely.
+asarUnpack:
+  - node_modules/sherpa-onnx-node/**
+directories:
+  output: dist
+files:
+  - out/**
+mac:
+  category: public.app-category.productivity
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  asarUnpack:
+    - node_modules/sherpa-onnx-darwin-*/**
+  files:
+    - '!node_modules/sherpa-onnx-win-*/**'
+    - '!node_modules/sherpa-onnx-linux-*/**'
+  # M2: microphone access for speech-following requires
+  #   entitlements.mac.plist with com.apple.security.device.audio-input
+  #   plus NSMicrophoneUsageDescription in extendInfo
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    NSMicrophoneUsageDescription: Teleprompter uses the microphone for voice-following scroll (all processing is on-device).
+# M3: enable signing/notarization (CSC_LINK + APPLE_API_KEY)
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  asarUnpack:
+    - node_modules/sherpa-onnx-win-*/**
+  files:
+    - '!node_modules/sherpa-onnx-darwin-*/**'
+    - '!node_modules/sherpa-onnx-linux-*/**'
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
