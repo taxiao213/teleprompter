@@ -5,6 +5,7 @@ import { AudioCapture } from './audioCapture'
 import { FollowAligner } from './FollowAligner'
 import { HoverToolbar } from './HoverToolbar'
 import { ResizeHandles } from './ResizeHandles'
+import { stripMarkdown } from './stripMarkdown'
 import { useScrollEngine } from './useScrollEngine'
 
 const GUIDE_RATIO = 0.35
@@ -41,7 +42,14 @@ export default function App(): React.JSX.Element {
     }
   }, [])
 
-  const lines = useMemo(() => (script?.content ?? '').split('\n'), [script?.content])
+  // Markdown sources (imported .md files, pasted markdown) are shown as
+  // plain spoken text — the editor keeps the raw source, the prompter strips
+  // the syntax. The aligner also sees the stripped text, which is what the
+  // speaker actually says.
+  const lines = useMemo(
+    () => (script?.content ?? '').split('\n').map(stripMarkdown),
+    [script?.content],
+  )
 
   // Rebuild the aligner whenever the script changes.
   useEffect(() => {
