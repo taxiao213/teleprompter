@@ -61,13 +61,15 @@ jobs:
           NODE_OPTIONS: --require ./scripts/tty-polyfill.cjs
       - name: Package (macOS, arm64 + x64)
         if: runner.os == 'macOS'
-        run: pnpm exec electron-builder --mac
+        # --publish never：tag 构建时 electron-builder 会隐式尝试发布（要 GH_TOKEN），
+        # 发布统一交给 release job
+        run: pnpm exec electron-builder --mac --publish never
       - name: Package (Windows)
         if: runner.os == 'Windows'
-        run: pnpm exec electron-builder --win --x64
+        run: pnpm exec electron-builder --win --x64 --publish never
       - name: Package (Linux)
         if: runner.os == 'Linux'
-        run: pnpm exec electron-builder --linux --x64
+        run: pnpm exec electron-builder --linux --x64 --publish never
       # 产物命名：teleprompter-<tag>-<平台>.<格式>（tag v0.1.0 → teleprompter-v0.1.0-macOS-arm64.dmg；
       # main 分支构建时 ref_name=main，产物为 teleprompter-main-* 仅作 CI 验证）
       - name: Stage release assets (macOS, arm64 + x64)
