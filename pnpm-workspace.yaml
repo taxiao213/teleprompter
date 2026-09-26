@@ -1,3 +1,12 @@
+# pnpm 11 构建脚本审批：三个包都有 postinstall（electron 下载二进制、
+# esbuild 安装平台二进制、electron-winstaller），CI 全新安装必须放行，
+# 否则 pnpm 11 直接 ERR_PNPM_IGNORED_BUILDS 失败。
+allowBuilds:
+  electron: true
+  esbuild: true
+  electron-winstaller: true
+
+# pnpm 10 及以下的等效配置（保留以兼容旧版 pnpm）
 onlyBuiltDependencies:
   - electron
   - esbuild
