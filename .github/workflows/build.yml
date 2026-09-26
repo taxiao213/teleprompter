@@ -59,6 +59,15 @@ jobs:
           # electron-vite 5 构建进度条在非 TTY stdout 上崩溃（clearLine/moveCursor），
           # 注入 no-op polyfill；三个平台通用
           NODE_OPTIONS: --require ./scripts/tty-polyfill.cjs
+      - name: Package (macOS, arm64 + x64)
+        if: runner.os == 'macOS'
+        run: pnpm exec electron-builder --mac
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        run: pnpm exec electron-builder --win --x64
+      - name: Package (Linux)
+        if: runner.os == 'Linux'
+        run: pnpm exec electron-builder --linux --x64
       # 产物命名：teleprompter-<tag>-<平台>.<格式>（tag v0.1.0 → teleprompter-v0.1.0-macOS-arm64.dmg；
       # main 分支构建时 ref_name=main，产物为 teleprompter-main-* 仅作 CI 验证）
       - name: Stage release assets (macOS, arm64 + x64)
