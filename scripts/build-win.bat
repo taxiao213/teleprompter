@@ -22,7 +22,10 @@ if not "%SKIP_TESTS%"=="1" (
   call pnpm test || exit /b 1
 )
 
+rem electron-vite 5 的构建进度条在非 TTY 环境会崩（process.stdout.clearLine），
+rem 用 NODE_OPTIONS 注入 no-op polyfill（与 CI 同一方案）。
 echo ==^> electron-vite build
+set NODE_OPTIONS=--require %CD%\scripts\tty-polyfill.cjs
 call pnpm build || exit /b 1
 
 echo ==^> electron-builder --win --x64

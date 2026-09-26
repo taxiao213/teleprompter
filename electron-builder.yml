@@ -10,6 +10,8 @@ directories:
   output: dist
 files:
   - out/**
+# 统一产物命名（CI release 资产按平台重命名），mac dmg 带 -x64 后缀便于区分
+artifactName: ${productName}-${version}-${arch}.${ext}
 mac:
   category: public.app-category.productivity
   target:
@@ -41,3 +43,13 @@ nsis:
   oneClick: false
   perMachine: false
   allowToChangeInstallationDirectory: true
+linux:
+  category: Utility
+  maintainer: taxiao
+  target:
+    - target: AppImage
+      arch: [x64]
+    - target: tar.gz
+      arch: [x64]
+  asarUnpack:
+    - node_modules/sherpa-onnx-linux-*/**

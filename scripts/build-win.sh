@@ -20,9 +20,9 @@ if [ "${SKIP_TESTS:-0}" != "1" ]; then
 fi
 
 # electron-vite 5 的构建进度条在非 TTY 环境会崩（process.stdout.clearLine），
-# 用 script(1) 套一层伪 TTY。
+# 用 NODE_OPTIONS 注入 no-op polyfill（与 CI 同一方案）。
 echo "==> electron-vite build"
-script -q /dev/null pnpm build
+NODE_OPTIONS="--require $(pwd)/scripts/tty-polyfill.cjs" pnpm build
 
 echo "==> electron-builder --win --x64"
 pnpm exec electron-builder --win --x64 "$@"
