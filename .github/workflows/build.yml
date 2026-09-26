@@ -40,9 +40,6 @@ jobs:
             label: linux-x64
     runs-on: ${{ matrix.os }}
     env:
-      # electron-vite 5 构建进度条在非 TTY stdout 上崩溃（clearLine/moveCursor），
-      # 注入 no-op polyfill；三个平台通用
-      NODE_OPTIONS: --require ./scripts/tty-polyfill.cjs
       # CI 不做 macOS 签名（无证书 secrets），发布未签名包
       CSC_IDENTITY_AUTO_DISCOVERY: "false"
     steps:
@@ -55,7 +52,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # NODE_OPTIONS 只能挂在 build 步骤：若挂 job 级会污染 actions/checkout 等
+      # action 的 node 进程（checkout 时仓库还没拉下来，polyfill 不存在直接崩）
       - run: pnpm build
+        env:
+          # electron-vite 5 构建进度条在非 TTY stdout 上崩溃（clearLine/moveCursor），
+          # 注入 no-op polyfill；三个平台通用
+          NODE_OPTIONS: --require ./scripts/tty-polyfill.cjs
       # 产物命名：teleprompter-<tag>-<平台>.<格式>（tag v0.1.0 → teleprompter-v0.1.0-macOS-arm64.dmg；
       # main 分支构建时 ref_name=main，产物为 teleprompter-main-* 仅作 CI 验证）
       - name: Stage release assets (macOS, arm64 + x64)
